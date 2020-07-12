@@ -1,0 +1,23 @@
+version: '3.5'
+services:
+  server:
+    container_name: count_server
+    image: count_server:latest
+    env_file: database.conf
+    ports: 
+      - 5000:5000
+    networks: 
+      - name-net
+  database:
+    container_name: postgres
+    image: postgres:latest
+    env_file: database.conf
+    volumes:
+      - db_volume:/var/lib/postgresql
+    networks: 
+      - name-net
+volumes:
+  db_volume:
+networks:
+  name-net:
+    driver: bridge
